@@ -15,6 +15,19 @@ body {
   background-color: #000000;
   height: 100vh;
   display: flex;
+  overflow-y: hidden;
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #535359;
+  border-radius: 5px;
 }
 
 .left-sidebar {
@@ -45,6 +58,7 @@ body {
   gap: 1.5rem;
   font-weight: 600;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .home-tag i {
@@ -109,18 +123,14 @@ body {
   font-size: 18px;
 }
 
-.drop-down div {
-  display: flex;
-  gap: 0.5rem;
-}
-
 .myWorld div {
   margin-bottom: 10px;
 }
 
 .right-sidebar {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  overflow-y: scroll;
   background-color: #121212;
   background: linear-gradient(
     to bottom,
@@ -135,7 +145,8 @@ body {
 }
 .bottom-up {
   background: linear-gradient(rgb(87, 95, 98), rgb(45, 49, 51));
-  border-radius: 12px 12px 0px 0px;
+  margin-top: -45px;
+  padding-top: 25px;
 }
 
 .bottom-mid {
@@ -145,16 +156,22 @@ body {
     rgb(14, 15, 15) 600px
   );
 }
-.pageLeftRight {
+
+.page {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   padding-right: 20px;
-  padding-top: 10px;
+  padding-top: 20px;
 }
+/* .pageLeft {
+  display: flex;
+  justify-content: flex-start;
+} */
 
-.pageLeftRight div {
-  margin-left: 10px;
-  margin-top: 10px;
+.page div {
+  margin-left: 20px;
   color: white;
 }
 
@@ -168,6 +185,12 @@ body {
   font-weight: 600;
 }
 
+.same:hover {
+  cursor: pointer;
+  color: grey;
+  background-color: rgb(60, 228, 120);
+}
+
 .same2 {
   border: none;
   padding: 7px 10px;
@@ -176,6 +199,11 @@ body {
   font-size: 14px;
   margin-right: 8px;
   font-weight: 600;
+}
+
+.same2:hover {
+  cursor: pointer;
+  color: grey;
 }
 
 .same3 {
@@ -187,6 +215,12 @@ body {
   font-size: 14px;
   margin-right: 8px;
   font-weight: 600;
+ 
+}
+
+.same3:hover {
+  cursor: pointer;
+  color: grey;
 }
 
 .album-info {
@@ -309,11 +343,21 @@ hr {
   position: fixed;
   background-color: black;
   bottom: 0;
+  left: 0;
   height: 100px;
-  width: 100%; 
+  width: 100%;
   padding: 0px 25px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.songInfo {
+  color: white;
+}
+
+.footer-image {
+  display: flex;
   align-items: center;
 }
 
@@ -325,10 +369,10 @@ hr {
 }
 
 .nav-middle {
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .icons {
@@ -342,12 +386,20 @@ hr {
 
 .pausePlay {
   margin-left: 5px;
-  font-size: 30px;
+  font-size: 25px;
 }
 
-.pausePlay:hover {
+.fa-circle-play,
+.fa-circle-pause {
+  width: 75px;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
+}
+
+.fa-circle-play,
+.fa-circle-pause:hover {
   cursor: pointer;
-  color:rgb(60, 228, 120);
 }
 
 .shuffle {
@@ -356,34 +408,26 @@ hr {
 
 .shuffle:hover {
   cursor: pointer;
-  color:rgb(60, 228, 120);
-}
-
-.backward {
-  margin-right: 5px;
+  color: rgb(60, 228, 120);
 }
 
 .backward :hover {
   cursor: pointer;
-  color:rgb(60, 228, 120);
-}
-
-.forward {
-  margin-left: 10px;
+  color: rgb(60, 228, 120);
 }
 
 .forward:hover {
   cursor: pointer;
-  color:rgb(60, 228, 120);
+  color: rgb(60, 228, 120);
 }
 
 .rewind {
   margin-left: 20px;
 }
 
-.rewind:hover{
+.rewind:hover {
   cursor: pointer;
-  color:rgb(60, 228, 120);
+  color: rgb(60, 228, 120);
 }
 
 .musicRange {
@@ -408,7 +452,7 @@ hr {
 
 .volumeup-down :hover {
   cursor: pointer;
-  color:rgb(60, 228, 120);
+  color: rgb(60, 228, 120);
 }
 
 .volume input {
@@ -417,5 +461,167 @@ hr {
   height: 5px;
   margin: 0 10px;
   cursor: pointer;
-  
+}
+
+.dropDownOptns {
+  display: none;
+  background-color: #282828;
+  position: absolute;
+  width: 150px;
+  margin-top: 12px;
+  height: 200px;
+  border-radius: 5px;
+  padding: 10px 5px;
+  margin-top: 10px;
+  margin-left: -15px;
+}
+
+.dropDownOptns.toggle {
+  display: block;
+}
+
+.dropDownOptns ul {
+  height: 100px;
+  margin-top: 10px;
+}
+
+.dropDownOptns li {
+  list-style-type: none;
+  letter-spacing: 1px;
+  font-size: 13px;
+  padding: 10px 0px 10px 10px;
+}
+
+.dropDownOptns span {
+  font-size: 12px;
+  padding-left: 10px;
+}
+
+.dropDownOptns li:hover {
+  background-color: #424242;
+}
+
+.dropDownBtn {
+  cursor: pointer;
+}
+
+.dropDownBtn span {
+  margin-right: 10px;
+}
+
+.dropDownBtn:hover span {
+  color: grey;
+  transform: scale(1.02);
+}
+
+.rotate {
+  transform: rotate(180deg);
+
+  transition: transform 0.3s ease;
+}
+
+.main-playlist {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #f2ffff;
+  margin-left: 40px;
+  position: relative;
+  margin-top: 15px;
+  padding: 7px 0px;
+}
+
+.main-playlist ul {
+  width: 100%;
+}
+
+.main-playlist ul li {
+  display: flex;
+  position: relative;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 0px;
+  margin-bottom: 30px;
+}
+
+.number {
+  margin-right: 20px;
+  margin-left: 0px;
+}
+
+.main-playlist img {
+  width: 4%;
+  margin-left: -7px;
+  margin-right: 10px;
+}
+
+.main-playlist ul li:hover {
+  background-color: #2a2a2a;
+}
+
+.main-playlist ul li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40px;
+  width: 40px;
+  height: 100%;
+  background-color: transparent;
+}
+
+.main-playlist ul li:hover::before {
+  background-color: #2a2a2a;
+}
+
+.main-playlist ul li:hover {
+  background-color: #2a2a2a;
+  cursor: pointer;
+}
+
+.fakeDiv {
+  width: 500px;
+  height: 500px;
+}
+
+.songInfo {
+  width: 200px;
+}
+
+@media (max-width: 640px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  .left-sidebar {
+    display: none;
+  }
+  .right-sidebar {
+    margin: 0px;
+    border-radius: 0px;
+  }
+  .page {
+    border: 1px solid red;
+    padding-right: 0px;
+    padding-top: 10px;
+  }
+  .same {
+    padding: 0px 5px;
+
+    margin-right: 0px;
+  }
+  .same2 {
+    padding: 3px 7px;
+    margin-right: 0px;
+  }
+  .same3 {
+    padding: 0px 5px;
+    margin-right: 0px;
+    
+  }
+  .page Div {
+    margin-left: 0px;
+  }
+  .pageRight span {
+    word-wrap:break-word ;
+  }
 }
